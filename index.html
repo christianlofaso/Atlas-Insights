@@ -3,16 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Atlas Insights: your charts, every morning</title>
-<meta name="description" content="Stop rebuilding the same stock charts every morning. Atlas Insights assembles your daily chart briefing before you wake up. Same charts, same format, zero setup.">
-<meta property="og:title" content="Atlas Insights: your charts, every morning">
-<meta property="og:description" content="A morning briefing of the stock charts you already care about, assembled before you wake up. Build it once, read it in 5 minutes every day.">
+<title>Atlas Insights: your morning charts, without the mess</title>
+<meta name="description" content="The charts you actually check every morning, clean and already assembled. No indicator menus, no news feed, no setup. Stocks, indexes, FX, yields, commodities, and charted fundamentals in one quiet stack.">
+<meta property="og:title" content="Atlas Insights: your morning charts, without the mess">
+<meta property="og:description" content="Your morning charts, clean and already assembled. No indicator menus, no news feed, no setup. Just the charts you actually check, in the format you chose.">
 <meta property="og:url" content="https://atlasinsightsapp.com">
 <meta property="og:image" content="https://atlasinsightsapp.com/img/01-daily-briefing.png">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <style>
   :root {
-    --accent: #3B5BDB;
-    --accent-soft: #f2f4fb;
+    /* Accent is the app icon's exact blue (#094AFE), sampled from AppIcon.png. */
+    --accent: #094AFE;
+    --accent-soft: #eef2ff;
     --text: #1a1a1a;
     --muted: #666;
     --bg: #fff;
@@ -21,8 +24,10 @@
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --accent: #7a94ff;
-      --accent-soft: #1c2030;
+      /* #094AFE is too dark to read on a near-black page, so dark mode uses a
+         lightened tint of the same hue. */
+      --accent: #6e90ff;
+      --accent-soft: #151b2e;
       --text: #eee;
       --muted: #9aa;
       --bg: #111;
@@ -40,10 +45,10 @@
 
   /* Hero */
   header { padding: 56px 0 24px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700;
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 700;
            font-size: 18px; letter-spacing: -0.2px; }
-  .brand .dot { width: 26px; height: 26px; border-radius: 7px;
-                background: var(--accent); display: inline-block; }
+  .brand .mark { width: 30px; height: 30px; border-radius: 8px; display: block;
+                 border: 1px solid var(--border); }
   .hero { display: flex; gap: 48px; align-items: center; padding: 40px 0 64px;
           flex-wrap: wrap; }
   .hero-copy { flex: 1 1 380px; }
@@ -51,7 +56,7 @@
              margin-bottom: 16px; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero p.lead { font-size: 19px; color: var(--muted); margin-bottom: 28px;
-                 max-width: 44ch; }
+                 max-width: 46ch; }
   .hero-shot { flex: 0 1 300px; text-align: center; }
   .hero-shot img { max-width: 100%; width: 300px; border-radius: 32px;
                    box-shadow: 0 24px 60px rgba(0,0,0,0.18); }
@@ -87,8 +92,18 @@
                        box-shadow: 0 16px 44px rgba(0,0,0,0.14); }
   .feature ul { margin: 16px 0 0 0; padding: 0; list-style: none; }
   .feature li { padding: 7px 0 7px 30px; position: relative; }
-  .feature li::before { content: "✓"; position: absolute; left: 0; top: 7px;
+  .feature li::before { content: "\2713"; position: absolute; left: 0; top: 7px;
                         color: var(--accent); font-weight: 700; }
+
+  /* Comparison cards */
+  .compare { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+             margin-top: 28px; }
+  .compare .col { background: var(--card); border: 1px solid var(--border);
+                  border-radius: 16px; padding: 24px; }
+  .compare h3 { font-size: 17px; margin-bottom: 8px; letter-spacing: -0.2px; }
+  .compare p { color: var(--muted); font-size: 15px; }
+  .verdict { margin-top: 28px; font-size: 18px; max-width: 60ch; }
+  .verdict strong { color: var(--accent); }
 
   /* Pricing */
   .pricing-box { background: var(--accent-soft); border-radius: 18px;
@@ -103,6 +118,9 @@
   footer .links a { margin-right: 18px; }
   .disclaimer { font-size: 13px; }
 
+  @media (max-width: 820px) {
+    .compare { grid-template-columns: 1fr; }
+  }
   @media (max-width: 700px) {
     .hero { padding: 24px 0 48px; }
     .hero h1 { font-size: 32px; }
@@ -116,15 +134,19 @@
 
 <div class="wrap">
   <header>
-    <div class="brand"><span class="dot"></span> Atlas Insights</div>
+    <div class="brand">
+      <img class="mark" src="img/logo.png" alt="" width="30" height="30">
+      Atlas Insights
+    </div>
   </header>
 
   <div class="hero">
     <div class="hero-copy">
-      <h1>Stop rebuilding the same charts <em>every morning</em>.</h1>
-      <p class="lead">Atlas Insights turns 20 minutes of googling tickers and
-      fiddling with chart settings into a 5-minute ritual: your charts,
-      assembled before you wake up. Same format, every day, zero setup.</p>
+      <h1>Stop <em>overcomplicating</em> your morning charts.</h1>
+      <p class="lead">You check the same handful of charts every morning. Every
+      app you check them in buries those charts under watchlists, news modules,
+      indicator menus, and settings you have to set again. Atlas Insights shows
+      you your charts, in your format, already assembled.</p>
 
       <!-- WAITLIST: posts straight to Kit form 9726674 (account uid 9086068c52).
            Deliberately NO Kit JavaScript: a plain POST keeps this page's own
@@ -155,17 +177,48 @@
 
 <div class="wrap">
   <section>
+    <p class="kicker">The trade-off everyone lives with</p>
+    <h2>Powerful, shallow, or noisy. Pick one.</h2>
+    <p class="sub">Every tool for this job sits at one of three extremes, and
+    none of them is built for the five minutes you actually spend.</p>
+    <div class="compare">
+      <div class="col">
+        <h3>Pro charting platforms</h3>
+        <p>Hundreds of indicators, drawing tools, and layouts, built for people
+        watching screens all day. Enormous capability you re-navigate every
+        morning to see one line.</p>
+      </div>
+      <div class="col">
+        <h3>The stocks app on your phone</h3>
+        <p>Clean and fast, and that's the whole ceiling. No fundamentals charted
+        over time, no per-chart timeframes, no yields or FX sitting next to your
+        stocks.</p>
+      </div>
+      <div class="col">
+        <h3>Finance portals</h3>
+        <p>The chart is real, but it arrives wrapped in trending tickers,
+        headlines, autoplaying video, and ads. You came for one number and
+        left with twelve.</p>
+      </div>
+    </div>
+    <p class="verdict">Atlas Insights is the narrow thing in the middle:
+    <strong>the depth of a real charting tool, arranged like the stocks app,
+    with nothing on screen you didn't ask for.</strong></p>
+  </section>
+
+  <section>
     <p class="kicker">Build it once</p>
     <h2>Your lineup, your format.</h2>
     <div class="feature rev">
       <div class="copy">
         <p class="sub">Search any stock, index, FX pair, treasury yield, or
-        commodity. Pick the timeframe, style, and theme once and never set it
-        up again.</p>
+        commodity. Pick the timeframe, style, and theme once. That's the last
+        time you touch the settings.</p>
         <ul>
           <li>Composable timeframes: 3 days, 2 weeks, YTD, or 4 years</li>
           <li>Line or candlestick, four chart themes including dark Midnight cards</li>
           <li>Moving average and metric overlays on any chart</li>
+          <li>Every chart keeps its own setup, so no two have to match</li>
         </ul>
       </div>
       <div class="shot">
@@ -180,12 +233,13 @@
     <h2>Assembled before you wake up.</h2>
     <div class="feature">
       <div class="copy">
-        <p class="sub">Your briefing refreshes on your schedule. Open the app
-        and it's already there: same charts, same order, every day. Slide
-        across any chart to scrub prices and dates.</p>
+        <p class="sub">Your briefing refreshes on your schedule. Open the app and
+        it's already there: same charts, same order, same format, every day.
+        Slide across any chart to scrub prices and dates.</p>
         <ul>
           <li>Daily and Weekly briefings, refreshed on your schedule</li>
           <li>Fundamentals, charted: EPS, P/E, PEG, P/B, P/FCF, dividend yield</li>
+          <li>Stocks, indexes, FX, treasury yields, and commodities in one stack</li>
           <li>A quiet notification when your brief is ready</li>
         </ul>
       </div>
@@ -216,7 +270,7 @@
       <a href="mailto:support@atlasinsightsapp.com">Contact</a>
     </div>
     <p class="disclaimer">Atlas Insights is for information only and is not
-    investment advice. © 2026 Atlas Insights · atlasinsightsapp.com</p>
+    investment advice. &copy; 2026 Atlas Insights &middot; atlasinsightsapp.com</p>
   </footer>
 </div>
 
