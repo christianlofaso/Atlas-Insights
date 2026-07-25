@@ -63,10 +63,11 @@
     border: 1px solid var(--border); border-radius: 12px;
     background: var(--card); color: var(--text); min-width: 0;
   }
-  .capture button {
+  .capture button, .capture .cta {
     font-size: 16px; font-weight: 600; padding: 13px 22px; border: 0;
     border-radius: 12px; background: var(--accent); color: #fff; cursor: pointer;
   }
+  .capture .cta { display: inline-block; text-decoration: none; color: #fff; }
   .capture-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
 
   /* App Store badge: swap in at launch (see comment in the hero) */
@@ -126,16 +127,23 @@
       fiddling with chart settings into a 5-minute ritual: your charts,
       assembled before you wake up. Same format, every day, zero setup.</p>
 
-      <!-- WAITLIST FORM: replace action with your Kit (ConvertKit) form endpoint.
-           At launch: delete this form, unhide .store-badge below, and set its href
-           to the App Store link. -->
-      <form class="capture" action="#" method="post">
-        <input type="email" name="email_address" placeholder="you@email.com"
-               aria-label="Email address" required>
-        <button type="submit">Get launch access</button>
-      </form>
-      <p class="capture-note">Launching soon on the App Store. One email when
-      it's live, nothing else.</p>
+      <!-- WAITLIST: mailto capture, used until a Kit (ConvertKit) form exists.
+           TO SWITCH TO KIT: delete the .capture div below, uncomment the form,
+           and put your form id in the action. The input is already named
+           email_address, which is what Kit expects, and the form posts without
+           JavaScript.
+        <form class="capture" action="https://app.kit.com/forms/FORMID/subscriptions" method="post">
+          <input type="email" name="email_address" placeholder="you@email.com"
+                 aria-label="Email address" required>
+          <button type="submit">Get launch access</button>
+        </form>
+           AT LAUNCH: unhide .store-badge below and set its href to the App Store
+           link. -->
+      <div class="capture">
+        <a class="cta" href="mailto:support@atlasinsightsapp.com?subject=Launch%20access&amp;body=Send%20me%20one%20email%20when%20Atlas%20Insights%20is%20live.">Get launch access</a>
+      </div>
+      <p class="capture-note">Launching soon on the App Store. Email us and you
+      get one message when it's live, nothing else.</p>
 
       <a class="store-badge" href="#">
         <img src="img/app-store-badge.svg" alt="Download on the App Store" width="160">
