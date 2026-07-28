@@ -74,8 +74,16 @@
   }
   .capture-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
 
-  /* App Store badge: swap in at launch (see comment in the hero) */
-  .store-badge { display: none; }
+  /* App Store CTA: live as of launch. To revert to the waitlist, flip these two
+     rules (show .capture + .capture-note, hide .store-badge + .store-note). */
+  .capture, .capture-note { display: none; }
+  .store-badge {
+    display: inline-block; font-size: 17px; font-weight: 600;
+    padding: 15px 28px; border: 0; border-radius: 12px;
+    background: var(--accent); color: #fff; text-decoration: none;
+  }
+  .store-note { font-size: 13px; color: var(--muted); margin-top: 12px; }
+  .pricing-box .store-badge { margin-top: 20px; }
 
   /* Sections */
   section { padding: 56px 0; border-top: 1px solid var(--border); }
@@ -148,14 +156,12 @@
       indicator menus, and settings you have to set again. Atlas Insights shows
       you your charts, in your format, already assembled.</p>
 
-      <!-- WAITLIST: posts straight to Kit form 9726674 (account uid 9086068c52).
-           Deliberately NO Kit JavaScript: a plain POST keeps this page's own
-           styling and pulls in no third-party script. Kit requires the field to
-           be named email_address. On submit the visitor lands on Kit's hosted
-           confirmation page; to bring them back here instead, set a Redirect URL
-           in the form's after-subscribe settings.
-           AT LAUNCH: unhide .store-badge below and set its href to the App Store
-           link. -->
+      <!-- WAITLIST (retired at launch, kept for an easy revert): posts straight to
+           Kit form 9726674 (account uid 9086068c52). Deliberately NO Kit JavaScript:
+           a plain POST keeps this page's own styling and pulls in no third-party
+           script. Kit requires the field to be named email_address. Post-submit
+           redirect to thanks.html is set in the form's after-subscribe settings.
+           Hidden by the .capture rule in the stylesheet. -->
       <form class="capture" action="https://app.kit.com/forms/9726674/subscriptions" method="post">
         <input type="email" name="email_address" placeholder="you@email.com"
                aria-label="Email address" required>
@@ -164,9 +170,13 @@
       <p class="capture-note">Launching soon on the App Store. One email when
       it's live, nothing else.</p>
 
-      <a class="store-badge" href="#">
-        <img src="img/app-store-badge.svg" alt="Download on the App Store" width="160">
-      </a>
+      <!-- LIVE CTA. Apple's official badge artwork is NOT bundled (it has to come
+           from Apple Marketing Tools); this is a plain text link, which Apple's
+           identity guidelines allow. To use the real badge instead, drop the SVG
+           at img/app-store-badge.svg and swap the link text for:
+           <img src="img/app-store-badge.svg" alt="Download on the App Store" width="160"> -->
+      <a class="store-badge" href="https://apps.apple.com/app/id6792141107">Download on the App Store</a>
+      <p class="store-note">Free to download. 7 days free, then $29.99 a year.</p>
     </div>
     <div class="hero-shot">
       <img src="img/01-daily-briefing.png"
@@ -257,6 +267,7 @@
       <div class="price">$29.99<span class="per">/year after a 7-day free trial</span></div>
       <p>That's about $0.58 a week, and your first full trading week of
       mornings is free. Prefer not to commit? $2.99/week, cancel anytime.</p>
+      <a class="store-badge" href="https://apps.apple.com/app/id6792141107">Download on the App Store</a>
     </div>
   </section>
 </div>
